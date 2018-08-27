@@ -1,0 +1,156 @@
+import React, { Component } from 'react';
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  TextInput,
+  Text,
+  View,
+  ScrollView,
+  ToastAndroid,
+  TouchableOpacity
+} from 'react-native';
+import {
+  InputWithLabel,
+  AppButton,
+} from './UI';
+
+let config = require('./config');
+type Props={};
+export default class loginScreen extends React.Component {
+  static navigationOptions = {
+    headerStyle: {
+      backgroundColor: '#fff',
+      opacity: 0,
+    },
+  };
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      cardnumber : '1234',
+      password: '1234',
+    };
+    this.login = this.login.bind(this);
+  }
+
+  login(){
+    let url = config.settings.serverPath + '/api/members/login';
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        cardnumber: this.state.cardnumber,
+        password: this.state.password,
+      }),
+    })
+    .then((response) => {
+      if(!response.ok) {
+        Alert.alert('Error', response.status.toString());
+        throw Error('Error ' + response.status);
+      }
+      return response.json()
+    })
+    .then((id) => {
+      console.log(id);
+      if(id != null){
+        ToastAndroid.show('Login successfully!', ToastAndroid.SHORT);
+        this.props.navigation.navigate('Home', {
+          id: id,
+        })
+        console.log(id);
+      }
+      else{
+        Alert.alert('Invalid Login','Invalid card number or password!',[
+          {
+            text: 'Ok',
+            onPress: () => {}
+          }
+        ]);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  render(){
+    return (
+      <ScrollView style={styles.container}>
+      <View style={styles.logo}>
+        <Image source={require('./icons/online-store-96.png')}/>
+      </View>
+      <View style={{borderWidth:0.6, borderRadius:4.0, borderColor:'blue'}}>
+        <InputWithLabel style={styles.input}
+          label={'Card Number:'}
+          value={this.state.cardnumber.toString()}
+          onChangeText={(cardnumber) => {this.setState({cardnumber})}}
+          orientation={'row'}
+          keyboardType={'numeric'}
+          maxLength={12}
+          />
+          <InputWithLabel style={styles.input}
+          label={'Password:'}
+          value={this.state.password}
+          onChangeText={(password) => {this.setState({password})}}
+          orientation={'row'}
+          secureTextEntry={true}
+          />
+      </View>
+      <AppButton style={styles.button}
+        title={'Log in'}
+        theme={'success'}
+        onPress={this.login}
+      />
+      <View style={{flexDirection:'row',justifyContent:'center'}}>
+        <Text style={{fontSize:17}}>{'Not a member? Press here to'}</Text>
+        <TouchableOpacity
+        onPress={ () => {
+          this.props.navigation.navigate('Home', {
+            id: 0,
+            })
+          }}
+          >
+          <View style={{marginLeft:3}}>
+            <Text style={{fontSize:17,color:'blue',textDecorationLine: 'underline',}}>{'skip'}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      </ScrollView>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  input: {
+    fontSize: 16,
+    color: '#000099',
+    marginTop: 10,
+    marginBottom: 10,
+    textDecorationLine: 'underline',
+  },
+  label: {
+      flex: 1,
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginLeft: 3,
+      textAlignVertical: 'center',
+  },
+  button: {
+    marginTop:10,
+    marginBottom:15,
+  },
+  logo:{
+    alignItems: 'center',
+    marginBottom:30,
+  }
+});
