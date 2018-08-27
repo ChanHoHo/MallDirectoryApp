@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+import sqlite3
+db = sqlite3.connect('adb.sqlite')
+
+db.execute('''CREATE TABLE shops(
+    id integer PRIMARY KEY,
+    name text NOT NULL,
+    desc text NOT NULL,
+    floor text NOT NULL,
+	image text NOT NULL,
+	map text NOT NULL,
+	category text NOT NULL
+)''')
+
+cursor = db.cursor()
+
+cursor.execute('''INSERT INTO shops(name,desc,floor,image,map,category)VALUES("ThaiOdyssey","Step inside and let the calming, soothing music and aromatic herbs embrace you. The perfect place for your escape from daily stress, Thai Odyssey has well-designed spa rooms for singles or groups, a variety of massage services to choose from, and experienced, attentive therapists just waiting to pamper you.","L3","./images/thaiodyssey.jpg","./maps/thaiodyssey.jpg","beauty")''')
+cursor.execute('''INSERT INTO shops(name,desc,floor,image,map,category)VALUES("OGAWA","This Malaysian health and wellness store has been taking care of busy, tired people since 1996. In fact, in our search for a healthier, more comfortable lifestyle, even we rely on Ogawa now and then. That made OGAWA become the number one choice for many homes and families today. Their well-designed massage chairs, electronic footbaths and other devices are not only high quality, they’re highly innovative, too.","L2","./images/ogawa.jpg","./maps/ogawa.jpg","beauty")''')
+cursor.execute('''INSERT INTO shops(name,desc,floor,image,map,category)VALUES("Adidas","adidas – a name that stands for competence in all sectors of sport around the globe. The brand comprises two divisions that reflect the two distinct market segments: Sports Performance and Sports Style. Product range extends from shoes, apparel and accessories for various sports activities like running, training, football, basketball, outdoor and more.","L3","./images/adidas.jpg","./maps/adidas.jpg","fashion")''')
+cursor.execute('''INSERT INTO shops(name,desc,floor,image,map,category)VALUES("Puma","Go further in the game with PUMA. Engineered sportswear for high-performance paired with sleek design will give you a much-needed boost in your lifestyle. If you’re hitting the streets, their urban wear collection will be guaranteed to make a bold statement. Browse the diverse range today!","L3","./images/puma.jpg","./maps/puma.jpg","fashion")''')
+cursor.execute('''INSERT INTO shops(name,desc,floor,image,map,category)VALUES("Morganfield's","For the foodie who loves sharing great food and atmosphere, Morganfield’s is the place for you! This award winning casual American diner is well known for its tantalisingly sticky pork ribs. All ribs go through a slow process of smoking and baking, before being grilled once you’ve placed your order. Their oversized platters are a perfect choice for large groups, or as a sample of their extensive menu. Bring your next party over here, and don’t forget to take home some souvenirs of your great time!","G","./images/morganfield.jpg","./maps/morganfield.jpg","foodbeverage")''')
+cursor.execute('''INSERT INTO shops(name,desc,floor,image,map,category)VALUES("Secret Recipe","At Secret Recipe Cakes & Café, simplicity and an upbeat cosmopolitan style come together to invite customers in for good food and good times. Along with its already extensive Asian and Western fusion food with award-winning dishes like Tom Yum Kung and Irish Lamb Stew; you can now enjoy Triple Cheese and Vegetarian Pesto pizzas, Grilled Tenderloin Steak and a selection of exotic Asian Wok Dishes. And, of course, no meal at Secret Recipe Cakes & Café is complete without a bite of its delicious cheese cakes and cream cakes!","G","./images/secretrecipe.jpg","./maps/secretrecipe.jpg","foodbeverage")''')
+cursor.execute('''INSERT INTO shops(name,desc,floor,image,map,category)VALUES("Thai Hou Sek","If you can’t decide whether you want Thai or Chinese for dinner, try Thai Hou Sek! This fun establishment serves up contemporary Thai-Chinese pork dishes, inspired by bold flavours of Thai street food. Choose from a variety of sharing plates filled with popular favourites and unconventional twists. Grab a seat and dig in today!","LG","./images/thaihousek.jpg","./maps/thaihousek.jpg","foodbeverage")''')
+cursor.execute('''INSERT INTO shops(name,desc,floor,image,map,category)VALUES("Tealive","Tea lovers rejoice! Built on a passion for tea, Tealive’s mission is to change the tea game and make tea that everyone can enjoy. Feeling thirsty? Come by for a refreshing drink of tea, coffee, smoothie, or even sparkling juice today and experience what Tealive is all about!","L3","./images/tealive.jpg","./maps/tealive.jpg","foodbeverage")''')
+cursor.execute('''INSERT INTO shops(name,desc,floor,image,map,category)VALUES("Samsung","Samsung, one of the world's largest electronics gadgets producer is currently here in Mid Valley Megamall! Catch the latest Samsung IT gadgets such as mobile phones, tablets, laptops and digital cameras all under one roof! Our friendly and warm team member are trained to help you select the perfect gadget for you!","L2","./images/samsung.jpg","./maps/samsung.jpg","gadget")''')
+cursor.execute('''INSERT INTO shops(name,desc,floor,image,map,category)VALUES("Huawei","With a wide presence across countries, Huawei is a tech giant to be reckoned with. The Huawei Experience Store encompasses the innovative capabilities of the brand, bringing you a complete range of Huawei smart devices. From high end flagship smartphones, to tablets and wearables, all your needs for the latest tech can be satisfied in one place.","L2","./images/huawei.jpg","./maps/huawei.jpg","gadget")''')
+cursor.execute('''INSERT INTO shops(name,desc,floor,image,map,category)VALUES("Nando's","An original South African restaurant, Nando’s keeps foodies happy with their specialty Afro-Portuguese Peri-Peri Flame-Grilled Chicken. These butterfly-cut chickens are marinated for 24 hours in the Afro-Portuguese recipe, then flame-grilled to perfection in your choice of Peri-Peri sauces, Lemon & Herbs, Mild, Hot, or Extra Hot. (Peri-Peri means bird’s eye chilli and is packed with vitamins A and C!)","LG","./images/nando.jpg","./maps/nando.jpg","foodbeverage")''')
+
+db.commit()
+db.close()
