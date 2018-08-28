@@ -24,5 +24,5 @@
 
 *******************************************************
 * -the adb database was placed in the \assets folder  *
-*  according to the leacture note guidelines          *
+*  according to the leacture note guidelines.         *
 *******************************************************
