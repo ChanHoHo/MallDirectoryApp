@@ -1,5 +1,8 @@
+
 import React, { Component, PureComponent } from 'react';
 import {
+  Alert,
+  AsyncStorage,
   Platform,
   StyleSheet,
   Text,
@@ -12,7 +15,6 @@ import {
   DrawerLayoutAndroid,
   TouchableOpacity,
   BackHandler,
-  Alert,
   ToastAndroid,
 } from 'react-native';
 
@@ -75,11 +77,14 @@ export default class HomeScreen extends Component<Props> {
       id: this.props.navigation.getParam('id'),
     };
 
+
     this.loadShops = this.loadShops.bind(this);
     this._query = this._query.bind(this);
+    this.logout = this.logout.bind(this);
     this._renderSection = this._renderSection.bind(this);
     this._renderRow = this._renderRow.bind(this);
     this.buttonOnPress = this.buttonOnPress.bind(this);
+    this._removeCredential = this._removeCredential.bind(this);
 
     this.db = SQLite.openDatabase({
       name: 'adb',
@@ -109,6 +114,27 @@ export default class HomeScreen extends Component<Props> {
   componentWillUnmount(){
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     console.log("unmounted!");
+  }
+
+  logout(){
+    Alert.alert('Log Out', '', [
+      {
+        text: 'Ok',
+        onPress: ()=> {this._removeCredential(), this.props.navigation.goBack()}
+      },
+      {
+        text: 'Cancel',
+        onPress: () => {}
+      }
+    ]);
+  }
+
+  async _removeCredential(){
+    try{
+       await AsyncStorage.multiRemove(['cardnumber','password','login']);
+    }catch(error){
+      console.log('Error removing credential!',error);
+    }
   }
 
   _query() {
@@ -187,7 +213,6 @@ export default class HomeScreen extends Component<Props> {
     </View>
   </TouchableHighlight>
 
-
   render() {
     return (
       <ScrollView >
@@ -216,6 +241,13 @@ export default class HomeScreen extends Component<Props> {
             >
               <View>
               <Image style={styles.icon} source={require('./icons/baseline_search_black_36dp.png')}/>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={this.logout}
+            >
+              <View>
+              <Image style={styles.icon} source={require('./icons/baseline_exit_to_app_black_36dp.png')}/>
               </View>
             </TouchableOpacity>
             </View>
@@ -253,17 +285,15 @@ const styles = StyleSheet.create({
   headerIcon:{
 
     flexDirection:'row',
-
   },
   icon:{
     width: 30,
     height: 30,
     margin: 10,
-    marginLeft:75,
+    marginLeft:55,
     marginBottom:5,
 
   },
-
 
   title:{
     flex:0.9,
