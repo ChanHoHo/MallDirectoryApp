@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  AsyncStorage,
   Alert,
   Image,
   StyleSheet,
@@ -29,10 +30,57 @@ export default class loginScreen extends React.Component {
     super(props)
 
     this.state = {
-      cardnumber : '1234',
-      password: '1234',
+      cardnumber : '',
+      password: '',
+      login: false,
     };
+
+    this._readCredential = this._readCredential.bind(this);
+    this._saveCredential = this._saveCredential.bind(this);
     this.login = this.login.bind(this);
+  }
+
+  componentDidMount(){
+    this._readCredential();
+  }
+
+  componentDidUpdate(){
+    if(this.state.login == true){
+       this.login();
+    }
+  }
+
+  async _readCredential(){
+    newStates ={};
+
+    try{
+      let keys = await AsyncStorage.multiGet(['cardnumber','password','login'], (err,stores)=>{
+        stores.map((result,i,store) =>{
+          let key = store[i][0];
+          let value = store[i][1];
+
+          if(value == 'true'){
+            newStates[key] = true;
+          }
+          else{
+            newStates[key] = value;
+          }
+        });
+        this.setState(newStates);
+      })
+
+    }catch(error){
+      console.log('Error Reading', error);
+    }
+  }
+
+  async _saveCredential(){
+    let keys =[['cardnumber', this.state.cardnumber], ['password', this.state.password],['login', 'true']];
+    try{
+      await AsyncStorage.multiSet(keys);
+    }catch(error){
+      console.log('Error Setting Credential!',error);
+    }
   }
 
   login(){
@@ -59,14 +107,15 @@ export default class loginScreen extends React.Component {
     .then((id) => {
       console.log(id);
       if(id != null){
-        ToastAndroid.show('Login successfully!', ToastAndroid.SHORT);
+        this._saveCredential();
+        ToastAndroid.show('Welcome', ToastAndroid.SHORT);
         this.props.navigation.navigate('Home', {
           id: id,
         })
         console.log(id);
       }
       else{
-        Alert.alert('Invalid Login','Invalid card number or password!',[
+        Alert.alert('Login Failed','Wrong card number or password!',[
           {
             text: 'Ok',
             onPress: () => {}
@@ -88,7 +137,7 @@ export default class loginScreen extends React.Component {
       <View style={{borderWidth:0.6, borderRadius:4.0, borderColor:'blue'}}>
         <InputWithLabel style={styles.input}
           label={'Card Number:'}
-          value={this.state.cardnumber.toString()}
+          value={this.state.cardnumber}
           onChangeText={(cardnumber) => {this.setState({cardnumber})}}
           orientation={'row'}
           keyboardType={'numeric'}
