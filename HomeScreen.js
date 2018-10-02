@@ -16,7 +16,6 @@ import {
   TouchableOpacity,
   BackHandler,
   ToastAndroid,
-  PermissionsAndroid,
 } from 'react-native';
 
 import ExpanableList from 'react-native-expandable-section-flatlist';
