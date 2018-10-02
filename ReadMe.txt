@@ -13,7 +13,8 @@
 * npm install --save react-native-elements                   *
 * npm i react-native-vector-icons --save                     *
 * npm install --save react-native-floating-action            *
-* npm install --save react-navigation                        *
+* npm install --save react-navigation      					 *
+* npm install --save react-native-open-maps                  *
 **************************************************************
 
 *******************************************************
