@@ -8,6 +8,7 @@ import SearchScreen from './SearchScreen';
 import FloorPlanScreen from './FloorPlanScreen';
 import ProfileScreen from './ProfileScreen';
 import UpdateScreen from './UpdateScreen';
+import MapLocationScreen from './MapLocationScreen';
 
 export default createStackNavigator({
   Login:{
@@ -30,6 +31,9 @@ export default createStackNavigator({
   },
   Update:{
     screen:UpdateScreen,
+  },
+  MapLocation:{
+    screen:MapLocationScreen,
   },
 }, {
   drawerPosition:'right',

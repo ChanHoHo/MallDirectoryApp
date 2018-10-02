@@ -16,6 +16,7 @@ import {
   TouchableOpacity,
   BackHandler,
   ToastAndroid,
+  PermissionsAndroid,
 } from 'react-native';
 
 import ExpanableList from 'react-native-expandable-section-flatlist';
@@ -244,6 +245,13 @@ export default class HomeScreen extends Component<Props> {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
+              onPress={ () => {this.props.navigation.navigate('MapLocation')}}
+            >
+              <View>
+              <Image style={styles.icon} source={require('./icons/baseline_near_me_black_36dp.png')}/>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={this.logout}
             >
               <View>
@@ -290,7 +298,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     margin: 10,
-    marginLeft:55,
+    marginLeft:37,
     marginBottom:5,
 
   },
