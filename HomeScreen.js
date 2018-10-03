@@ -17,6 +17,7 @@ import {
   BackHandler,
   ToastAndroid,
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import ExpanableList from 'react-native-expandable-section-flatlist';
 
@@ -75,6 +76,7 @@ export default class HomeScreen extends Component<Props> {
       isHidden:false,
       show:true,
       id: this.props.navigation.getParam('id'),
+      visible:false,
     };
 
 
@@ -120,7 +122,8 @@ export default class HomeScreen extends Component<Props> {
     Alert.alert('Log Out', '', [
       {
         text: 'Ok',
-        onPress: ()=> {this._removeCredential(), this.props.navigation.goBack()}
+        onPress: ()=> {this._removeCredential(), setTimeout(() =>{
+        this.props.navigation.goBack();},1500);}
       },
       {
         text: 'Cancel',
@@ -130,6 +133,7 @@ export default class HomeScreen extends Component<Props> {
   }
 
   async _removeCredential(){
+    this.setState({visible: true});
     try{
        await AsyncStorage.multiRemove(['cardnumber','password','login']);
     }catch(error){
@@ -216,6 +220,7 @@ export default class HomeScreen extends Component<Props> {
   render() {
     return (
       <ScrollView >
+      <Spinner visible={this.state.visible} textContent={"Logging out..."} textStyle={{color: '#FFF'}} />
         <ScrollView style={{flex:1}}>
           <View style={styles.headerIcon}>
 
@@ -290,7 +295,6 @@ const styles = StyleSheet.create({
     marginBottom:5,
   },
   headerIcon:{
-
     flexDirection:'row',
   },
   icon:{
@@ -299,16 +303,13 @@ const styles = StyleSheet.create({
     margin: 10,
     marginLeft:37,
     marginBottom:5,
-
   },
-
   title:{
     flex:0.9,
     margin:10,
     fontSize: 20,
     color:'white',
     fontWeight:'bold',
-
   },
   container: {
     flex: 1,

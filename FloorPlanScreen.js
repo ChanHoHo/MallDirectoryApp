@@ -51,9 +51,9 @@ const styles = StyleSheet.create({
   },
   image:{
     flex: 1,
-        alignSelf: 'stretch',
-        width: '100%',
-        height:160,
+    alignSelf: 'stretch',
+    width: '100%',
+    height:160,
   },
   text:{
     textAlign:'center',

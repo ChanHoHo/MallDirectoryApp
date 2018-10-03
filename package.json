@@ -14,6 +14,8 @@
     "react-native-elements": "^0.19.1",
     "react-native-expandable-section-flatlist": "^1.1.7",
     "react-native-floating-action": "^1.13.0",
+    "react-native-loading-spinner-overlay": "^0.5.2",
+    "react-native-mail": "^3.0.7",
     "react-native-open-maps": "^0.3.2",
     "react-native-sqlite-storage": "^3.3.6",
     "react-native-vector-icons": "^5.0.0",

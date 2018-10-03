@@ -5,6 +5,9 @@ import{
   Image,
   ScrollView,
   View,
+  TouchableOpacity,
+  Text,
+  TouchableNativeFeedback,
 } from 'react-native';
 import{
   InputWithLabel
@@ -12,6 +15,7 @@ import{
 import{
   FloatingAction
 } from 'react-native-floating-action';
+import Mailer from 'react-native-mail';
 
 const actions=[{
   text:'Edit',
@@ -53,6 +57,7 @@ export default class ProfileScreen extends Component<Props>{
       member:null,
     };
 
+    this.handleEmail = this.handleEmail.bind(this);
     this._load = this._load.bind(this);
   }
 
@@ -76,6 +81,25 @@ export default class ProfileScreen extends Component<Props>{
     })
     .catch((error)=>{
       console.error(error);
+    });
+  }
+
+  handleEmail = () => {
+    Mailer.mail({
+      subject: 'Enter Subject Here',
+      recipients: ['support@awesomemall.com'],
+      body: 'Enter Description Here',
+      isHTML: true,
+    }, (error, event) => {
+      Alert.alert(
+        error,
+        event,
+        [
+          {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
+          {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
+        ],
+        { cancelable: true }
+      )
     });
   }
 
@@ -117,6 +141,14 @@ export default class ProfileScreen extends Component<Props>{
         editable={false}
         />
         </ScrollView>
+        <TouchableOpacity
+          onPress={ () => {this.handleEmail()}}
+        >
+          <View>
+          <Image style={styles.icon} source={require('./icons/baseline_email_black_36dp.png')}/>
+          <Text>Send Enquiry</Text>
+          </View>
+        </TouchableOpacity>
         <FloatingAction
         actions={actions}
         overrideWithAction={true}
@@ -151,5 +183,11 @@ const styles = StyleSheet.create({
     width:100,
     height:100,
     alignSelf:'center'
-  }
+  },
+  icon:{
+    marginLeft:10,
+    marginRight:5,
+    width: 60,
+    height: 60,
+  },
 });
