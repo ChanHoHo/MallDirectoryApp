@@ -5,16 +5,19 @@
 * password: 1234           *
 ****************************
 
-**************************************************************
-*                    Modules that installed                  *
-**************************************************************
-* npm install --save react-native-sqlite-storage             *
-* npm install react-native-expandable-section-flatlist --save*
-* npm install --save react-native-elements                   *
-* npm i react-native-vector-icons --save                     *
-* npm install --save react-native-floating-action            *
-* npm install --save react-navigation                        *
-**************************************************************
+*****************************************************************
+*                    Modules that installed                  	*
+*****************************************************************
+* npm install --save react-native-sqlite-storage             	*
+* npm install react-native-expandable-section-flatlist --save	*
+* npm install --save react-native-elements                   	*
+* npm i react-native-vector-icons --save                     	*
+* npm install --save react-native-floating-action           	*
+* npm install --save react-navigation      		     		 	*
+* npm install --save react-native-open-maps                  	*
+* npm install --save react-native-loading-spinner-overlay@latest*
+* npm i --save react-native-mail								*
+*****************************************************************
 
 *******************************************************
 * Run the web service before react-native run-android *

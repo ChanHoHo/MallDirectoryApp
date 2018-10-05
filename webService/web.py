@@ -12,7 +12,7 @@ def get_row_as_dict(row):
         'name': row[3],
 		'rewardpoint': row[4],
 		'contactnumber': row[5],
-        'membership': row[6], 
+        'membership': row[6],
     }
 
     return row_dict

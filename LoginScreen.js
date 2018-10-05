@@ -118,7 +118,7 @@ export default class loginScreen extends React.Component {
         Alert.alert('Login Failed','Wrong card number or password!',[
           {
             text: 'Ok',
-            onPress: () => {}
+            onPress: () => {this.setState({cardnumber:'',password:''})}
           }
         ]);
       }
@@ -135,21 +135,24 @@ export default class loginScreen extends React.Component {
         <Image source={require('./icons/online-store-96.png')}/>
       </View>
       <View style={{borderWidth:0.6, borderRadius:4.0, borderColor:'blue'}}>
-        <InputWithLabel style={styles.input}
-          label={'Card Number:'}
-          value={this.state.cardnumber}
-          onChangeText={(cardnumber) => {this.setState({cardnumber})}}
-          orientation={'row'}
-          keyboardType={'numeric'}
-          maxLength={12}
-          />
-          <InputWithLabel style={styles.input}
-          label={'Password:'}
-          value={this.state.password}
-          onChangeText={(password) => {this.setState({password})}}
-          orientation={'row'}
-          secureTextEntry={true}
-          />
+        <View style={styles.inputFrame}>
+          <TextInput style={styles.input}
+            placeholder={'Enter Card Number'}
+            value={this.state.cardnumber}
+            onChangeText={(cardnumber) => {this.setState({cardnumber})}}
+            keyboardType={'numeric'}
+            maxLength={12}
+            />
+        </View>
+        <View style={styles.inputFrame}>
+          <TextInput style={styles.input}
+            placeholder={'Enter Pin Number'}
+            value={this.state.password}
+            onChangeText={(password) => {this.setState({password})}}
+            keyboardType={'default'}
+            secureTextEntry={true}
+            />
+        </View>
       </View>
       <AppButton style={styles.button}
         title={'Log in'}
@@ -181,11 +184,15 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   input: {
-    fontSize: 16,
+    fontSize: 23,
     color: '#000099',
     marginTop: 10,
     marginBottom: 10,
     textDecorationLine: 'underline',
+  },
+  inputFrame:{
+    marginLeft:30,
+    marginRight:30,
   },
   label: {
       flex: 1,
